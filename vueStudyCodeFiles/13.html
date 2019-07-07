@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data(){
+                return {
+                    info:"父组件的abcd"
+                }
+            },
+            template:`
+            <div>
+               要做的效果：slot卡槽来展示数据 以及子组件展示根组件的data内容
+               <my-comp>
+                  <p>组件的内容</p>
+                  <p>还是组件的内容</p>
+               </my-comp>
+               <my-comp></my-comp>
+               <my-comp :pro='info'></my-comp>
+            </div>
+            `,
+            components:{
+                "my-comp":{
+                    data(){
+                        return {
+                            info1:"efg"
+                        }
+                    },
+                    template:`
+                    <div>
+                    <slot></slot>
+                    {{info1}}
+                    {{pro}}
+                    </div>
+                    `,
+                    props:{
+                        pro:{
+                            default:"默认内容",
+                            type:String
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

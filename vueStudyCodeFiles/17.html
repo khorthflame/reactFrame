@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='./vue.js'></script>
+	<style>
+		.demo {
+			float: left;
+		}
+		.demo1 {
+			float: right;
+		}
+		.clearFix:before,
+		.clearFix:after {
+			display: table;
+			content: '';
+		}
+		.clearFix:after {
+			clear: both;
+		}
+		.search {
+			width: 320px;
+			max-height: 300px;
+			border-radius: 20px;
+			background: #ddd;
+		}
+		.s_box {
+			width: 300px;
+			margin: 10px auto;
+		}
+		.keyWord {
+			width: 230px;
+			height: 30px;
+			border-radius: 15px;
+			outline: none;
+			border: none;
+			font-size: 18px;
+			padding-left: 10px;
+		}
+		.go {
+			border-radius: 15px;
+			outline: none;
+			width: 50px;
+			height: 30px;
+			border: none;
+			background: #e4393c;
+		}
+		.listNode {
+			list-style: none;
+			padding: 0;
+			margin: 10px auto;
+			width: 300px;
+		}
+		.listNode li {
+			padding-left: 20px;
+			color: #555;
+			line-height: 30px;
+			cursor: pointer;
+		}
+		.listNode li:hover {
+			background: #BDBCBC;
+		}
+		.style_a {
+			background: #999;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- 案例HTML代码 -->
+	<div class='demo'>
+		<div class='search clearFix'>
+			<div class='clearFix s_box'>
+				<!-- 输入框 -->
+				<input type="text" class='keyWord'>
+				<input type="button" value='GO' class='go'>
+			</div>
+			<ul class='listNode'>
+				<li>HTML5+CSS3</li>
+				<li>javaScript</li>
+				<li>Angular.js</li>
+				<li>React.js</li>
+				<li>Vue.js</li>
+				<li>jQuery</li>
+				<li>node.js</li>
+			</ul>
+		</div>
+	</div>
+
+	
+	<div id='app'></div>
+  <!-- searchBox 模板 -->
+	<template id='temp01'>
+		<div class='demo1'>
+			<div class='search clearFix'>
+				<div class='clearFix s_box'>
+					<!-- 输入框 -->
+					<input type="text" class='keyWord' v-model='msg' @click='toggle'>
+					<input type="button" value='GO' class='go'>
+				</div>
+				<!-- liList 组件 -->
+				<li-list :show-arr='listArr' @change='getItem'  v-show='showList'></li-list>
+			</div>
+		</div>
+	</template>
+	<!-- liList 模板 -->
+	<template id='temp02'>
+		<ul class='listNode'>
+			<li v-for='item in showArr' @click='add(item)'>{{ item }}</li>
+		</ul>
+	</template>
+</body>
+<script>
+	/* 案例：   3:15 ~ 3:45  
+	 1. 全局注册一个SearchBox组件(整个demo)
+	 2. ul>li部分拆分出来做一个单独组件 liList
+	 3. SearchBox中data: listArr
+	     listArr: [HTML5+CSS3,javaScript,Angular.js,React.js,Vue.js,jQuery,node.js]
+	 业务逻辑：
+	   1. 把父组件的listArr传递给子组件使用
+		 2. 点击输入框，切换子组件的显示和隐藏 
+		 3. 点击每一个li,在输入框显示对应点击的内容		 
+	*/
+	Vue.component('SearchBox', {
+		template: '#temp01',
+		data(){
+			return { // 状态
+				listArr: ['HTML5+CSS3','javaScript','Angular.js','React.js','Vue.js','jQuery','node.js'],
+				msg: '',
+				showList: false
+			}
+		},
+		methods:{
+			getItem(item){
+				this.msg = item;
+			},
+			toggle(){
+				this.msg = "";
+        this.showList = !this.showList;
+			}
+		},
+		components:{
+			'liList':{
+				template: '#temp02',
+				props:{
+					'showArr':{
+						type: Array,
+						default: []
+					}
+				},
+				methods:{
+					add(item){
+						// 获取到每一个li的内容
+						this.$emit('change',item);
+					}
+				}
+			}
+		}
+	})
+	new Vue({
+		el: '#app',
+		template: `<search-box></search-box>`
+	})
+</script>
+
+</html>

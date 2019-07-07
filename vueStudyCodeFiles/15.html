@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    要做的效果 点击后 使用$.emit向父组件派发自定义事件
+    <div id="app"></div>
+    <script>
+          /*
+          子组件向父组件传递数据
+           1，局部注册一个子组件 childComp
+           2,子组件通过单击按钮向父组件派发一个自定义事件 $emit()
+           3,在父中绑定这个事件 v-on
+        */
+       new Vue({
+           el:"#app",
+           data(){
+               return {
+                   info:0
+               }
+           },
+            template:`
+                <child-comp @setInfo="getInfo">{{info}}</child-comp>
+            `
+             ,
+             methods:{
+                 getInfo(aa,bb){
+                    this.info=aa+bb;
+                 }
+             }
+             ,components:{
+               childComp:{
+                   template:`<div>
+                   <button @click="dianji">点击</button>
+                   <slot></slot>
+                   </div>`
+               ,
+               data(){
+                    return {
+                        info1:10
+                    }
+               },
+               methods:{//通过$.emit向父组件派发自定义事件
+                   dianji(){
+                      this.$emit("setInfo",this.info1,20);
+                   }
+               }
+               }  
+           }
+       })
+    </script>
+</body>
+</html>

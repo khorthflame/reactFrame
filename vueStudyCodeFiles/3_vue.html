@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="add">增加</button>
+        <button @click="del">减少</button>
+        <div @touchstart='show'>{{num}}</div>
+    </div>
+    <script>
+       new Vue({
+           el:'#app',
+           data:{
+               num:0
+           },
+           methods:{
+               add(){
+                this.num+=10;
+               },
+               del(){
+                this.num-=10;
+               },
+               show(){
+                alert(this.num);
+               }
+           }
+       })
+    </script>
+</body>
+</html>

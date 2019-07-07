@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+       .blue{background: blue}
+       .red{background: red;}
+    </style>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="toggle" >转换</button>
+        <button @click="shift" :class="tclass">切换显示</button>
+        <p v-if="flag">{{a}}</p>
+    </div>
+    <script>
+       new Vue({
+           el:"#app",
+           data:{
+               a:"aaaa",
+               b:"bbbb",
+               flag:true,
+                tclass:"blue"
+           },
+           methods:{
+               toggle(){
+                   this.flag=!this.flag;
+               },
+               shift(){
+                  if(this.tclass=="red"){
+                      this.tclass="blue"
+                  }else{
+                      this.tclass ="red";
+                  }
+               }
+           }
+       })
+    </script>
+</body>
+</html>
