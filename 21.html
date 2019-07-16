@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <div id="div"></div>
+    <input type="text"> -->
+    <!-- VUE实现双向数据绑定的原理就是利用了 Object.defineProperty() 这个方法重新定义了对象获取属性值(get)和设置属性值(set)的操作来实现的。 -->
+    <script>
+//  var obj = {};
+//         Object.defineProperty(obj,'onchange',{
+//             set:function(newVal){
+//                 document.getElementById('a').value = newVal;
+//                 document.getElementById('b').innerHTML = newVal;
+//             }
+//         });
+//         document.addEventListener('keyup',function(e){
+//             obj.hello = e.target.value;
+//         })
+
+// var Book = {}
+// var name = '';
+// Object.defineProperty(Book, 'name', {
+//   set: function (value) {
+//     name = value;
+//     console.log('你取了一个书名叫做' + value);
+//   },
+//   get: function () {//返回经过处理的变量
+//     return '《' + name + '》'
+//   }
+// })
+
+// Book.name = 'vue权威指南';  // 你取了一个书名叫做vue权威指南
+// console.log(Book.name);  // 《vue权威指南》
+//    document.getElementById("div").innerHTML = Book.name;
+    </script>
+     <div id="demo"></div>
+     <input type="text" id="inp">
+     <script>
+         var obj  = {};
+         var demo = document.querySelector('#demo')
+         var inp = document.querySelector('#inp')
+         Object.defineProperty(obj, 'name', {
+            //  get: function() {
+            //      return val;
+            //  },
+             set: function (newVal) {//当该属性被赋值的时候触发
+                 inp.value = newVal;
+                 demo.innerHTML = newVal;
+             }
+         })
+         inp.addEventListener('input', function(e) {
+             // 给obj的name属性赋值，进而触发该属性的set方法
+             obj.name = e.target.value;
+         });
+         obj.name = 'fei';//在给obj设置name属性的时候，触发了set这个方法
+     </script>
+
+</body>
+</html>

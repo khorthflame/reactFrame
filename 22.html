@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div"></div>
+    <input type="text" id="ipu">
+    <script>
+        //事件监听 也能去模拟绑定
+         var ipu = document.getElementById("ipu");
+         var div = document.getElementById("div");
+        //  var obj = {};
+        //  Object.defineProperty(obj,"newvalue",{
+        //      set:function(e){
+        //          div.innerHTML = e;
+        //          ipu.value = e;
+        //      }
+             
+        //  })
+         ipu.addEventListener("input",function(e){
+                div.innerHTML = e.target.value;
+         })
+    </script>
+    <script>
+    var obj = {},book = '三国演义';
+
+    Object.defineProperty(obj,'book',{
+        get: function(){
+    　　　　　　//返回经过处理后的变量
+            return '<<'+book+'>>'
+        },
+        set: function(val){
+    　　　　//利用临时变量接收赋值
+            book = val
+       }    
+    })
+    
+    console.log(obj.book) // "<<三国演义>>"
+    
+    obj.book = '西游记'
+    
+    console.log(obj.book)// "<<西游记>>"
+</script>
+</body>
+</html>
