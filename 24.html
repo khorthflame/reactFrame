@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    5、伪数组
+定义：
+
+1、拥有length属性，其它属性（索引）为非负整数(对象中的索引会被当做字符串来处理，这里你可以当做是个非负整数串来理解)
+2、不具有数组所具有的方法
+
+伪数组，就是像数组一样有 length 属性，也有 0、1、2、3 等属性的对象，看起来就像数组一样，但不是数组，比如
+
+var fakeArray = {
+    length: 3,
+    "0": "first",
+    "1": "second",
+    "2": "third"
+};
+ 
+for (var i = 0; i < fakeArray.length; i++) {
+    console.log(fakeArray[i]);
+}
+ 
+Array.prototype.join.call(fakeArray,'+');
+常见的参数的参数 arguments，DOM 对象列表（比如通过 document.getElementsByTags 得到的列表），jQuery 对象（比如 $("div")）。
+
+伪数组是一个 Object，而真实的数组是一个 Array
+//jquery的对象 比如 $("div")
+</body>
+</html>
